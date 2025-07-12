@@ -1,0 +1,15 @@
+{
+  "name": "kairos-frontend",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "kairos_frontend_bg.wasm",
+    "kairos_frontend.js",
+    "kairos_frontend.d.ts"
+  ],
+  "main": "kairos_frontend.js",
+  "types": "kairos_frontend.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

@@ -1,0 +1,7 @@
+-- Este archivo init.sql está limpio para evitar conflictos con las migraciones de Diesel.
+-- Si necesitas crear el usuario y la base de datos, puedes descomentar y ajustar las siguientes líneas:
+--
+-- CREATE USER kairos WITH PASSWORD 'kairos123';
+-- CREATE DATABASE kairos OWNER kairos;
+--
+-- Toda la estructura (tipos, tablas, funciones, triggers, índices) debe ser gestionada únicamente por las migraciones de Diesel. 

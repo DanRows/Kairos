@@ -1,0 +1,64 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: kairos_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: kairos
+      POSTGRES_USER: kairos
+      POSTGRES_PASSWORD: kairos123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kairos"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kairos_net
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: kairos_backend
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: kairos
+      POSTGRES_USER: kairos
+      POSTGRES_PASSWORD: kairos123
+      DATABASE_URL: postgres://kairos:kairos123@db:5432/kairos
+      RUST_LOG: info
+      CORS_ORIGIN: http://localhost:8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - kairos_net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: kairos_frontend
+    restart: unless-stopped
+    environment:
+      - API_BASE_URL=http://localhost:8080
+    ports:
+      - "8081:8081"
+    depends_on:
+      - backend
+    networks:
+      - kairos_net
+
+volumes:
+  postgres_data:
+
+networks:
+  kairos_net:
+    driver: bridge 

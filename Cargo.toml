@@ -1,0 +1,28 @@
+[workspace]
+resolver = "2"
+members = [
+    "backend",
+    "frontend",
+    "kairos-common",
+]
+
+# Perfiles de compilación para todo el workspace
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
+ 

@@ -1,0 +1,1 @@
+CREATE TYPE role_enum AS ENUM ('Admin', 'Producer', 'User');

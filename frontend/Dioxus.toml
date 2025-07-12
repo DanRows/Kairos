@@ -1,0 +1,22 @@
+[application]
+name = "Kairos"
+version = "0.1.0"
+default_platform = "web"
+
+[web]
+title = "Kairos - Plataforma de Trazabilidad Agrícola"
+base_path = "/"
+asset_dir = "public"
+
+[web.watcher]
+watch_paths = ["src", "public"]
+ignore_paths = ["target", ".git"]
+
+[web.dev]
+port = 8081
+open = true
+hot_reload = true
+
+[web.prod]
+optimize = true
+minify = true 
